@@ -6,10 +6,10 @@ const Box = (props: any) => {
     const mesh = useRef<Mesh>(null!)
     const [hovered, setHover] = useState(false)
     const [active, setActive] = useState(false)
-    useFrame((_, delta) => {
-        mesh.current.rotation.x += 1 * delta
-        mesh.current.rotation.y += 0.5 * delta
-    })
+    // useFrame((_, delta) => {
+    //     mesh.current.rotation.x += 1 * delta
+    //     mesh.current.rotation.y += 0.5 * delta
+    // })
 
     return (
         <mesh
@@ -19,8 +19,8 @@ const Box = (props: any) => {
             onClick={(event) => setActive(!active)}
             onPointerOver={(event) => setHover(true)}
             onPointerOut={(event) => setHover(false)}>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+            <boxGeometry args={[100, 100, 100]} />
+            <meshStandardMaterial color={hovered ? ('orange') : (props?.color||'green')} />
         </mesh>
     )
 }
