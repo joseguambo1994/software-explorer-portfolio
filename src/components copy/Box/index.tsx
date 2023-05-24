@@ -4,7 +4,6 @@ import { Mesh } from 'three'
 
 const Box = (props: any) => {
     const mesh = useRef<Mesh>(null!)
-    
     const [hovered, setHover] = useState(false)
     const [active, setActive] = useState(false)
     // useFrame((_, delta) => {

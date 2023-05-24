@@ -1,17 +1,13 @@
-import { useLoader, useThree } from '@react-three/fiber';
+import { useLoader } from '@react-three/fiber';
 import Box from '../Box';
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { OrbitControls, useCubeTexture} from '@react-three/drei';
-import SkyBox from '../Skybox';
+import galaxyImage from '../../galaxy.jpg'
+import { OrbitControls } from '@react-three/drei';
 
 
 const Scene = () => {
-  const { scene } = useThree();
 
-
-  const colorMap = useLoader(TextureLoader,'galaxy.jpg' )
-
-   
+    const colorMap = useLoader(TextureLoader, galaxyImage)
 
 
   return (
@@ -35,7 +31,6 @@ const Scene = () => {
       <Box position={[0, 0, 200]} color={'yellow'} />
       <Box position={[200, 0, 200]} color={'gray'} />
       <Box position={[0, 200, 200]} color={'orange'} />
-      <SkyBox />
       {/* <Box position={[-100, 100, 0]} color={'yellow'} />
       <Box position={[100, -100, 0]}  color={'black'}/>
       <Box position={[-100, -100, 0]}  color={'brown'}/> */}
