@@ -14,7 +14,7 @@ const SceneModel = () => {
 
   return (
     <>
-    
+    <OrbitControls />
       <pointLight intensity={1} position={[1000, 1000, 1000]} />
      
       <pointLight position={[5, 5, 5]} />
