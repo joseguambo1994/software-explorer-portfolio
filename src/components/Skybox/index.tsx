@@ -1,22 +1,20 @@
-import { useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber'
-import { useCubeTexture, useScroll } from '@react-three/drei';
-
-
-const SkyBox = () => {
-  const { scene } = useThree();
-  const texture = useCubeTexture([
-    'galaxy.jpg',
-    'galaxy.jpg',
-    'galaxy.jpg',
-    'galaxy.jpg',
-    'galaxy.jpg',
-    'galaxy.jpg',
-  ], { path: '/' })
-
-  
-  // Set the scene background property to the resulting texture.
-  scene.background = texture;
-  return null;
+import { useCubeTexture } from "@react-three/drei";
+import { useLoader, useThree , } from "@react-three/fiber"
+import React from "react"
+import { CubeTextureLoader } from "three"
+export default function CubeMap() {
+  const { scene } = useThree()
+  const envMap = useCubeTexture(
+    [
+      "galaxy.jpg",
+      "galaxy.jpg",
+      "galaxy.jpg",
+      "galaxy.jpg",
+      "galaxy.jpg",
+      "galaxy.jpg",
+    ],
+    { path: "background/" }
+  );
+  scene.background = envMap
+  return <React.Fragment>{null}</React.Fragment>
 }
-export default SkyBox;
