@@ -1,9 +1,9 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Canvas, useLoader, useThree,extend , useFrame } from '@react-three/fiber'
+import { Canvas, useLoader, useThree,extend , useFrame, Vector3 } from '@react-three/fiber'
 import Box from './components/Box';
-import { Environment, OrbitControls, OrthographicCamera, Scroll, ScrollControls, Sky, View, useTexture } from '@react-three/drei';
+import { Environment, OrbitControls, OrthographicCamera, Scroll, ScrollControls, Sky, View, useCubeTexture, useTexture } from '@react-three/drei';
 import Scene from './components/Scene';
 import Cube from './components/Cube';
 import Scene2 from './components/Scene2';
@@ -20,8 +20,58 @@ import {
   RGBAFormat,
   LinearMipmapLinearFilter
 } from "three";
+import Particles from './components/particle';
+import PersonalData from './components/personalData';
+import { RobotAnimated } from './components/robotAnimated';
 
 extend({ OrbitControls });
+const getBox = () =>{
+  return (
+    <Canvas shadows camera={{ position: [0, 0, 8], fov: 28 }}>
+    <color attach="background" args={['#151520']} />
+    <directionalLight position={[-2.5, 4, 5]} castShadow intensity={1} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
+    <group position={[0, -0.75, 0]}>
+      <boxGeometry args={[1, 1, 1]} />
+      <mesh receiveShadow rotation-x={-Math.PI / 2} scale={1} position={[0, 0, 0]}>
+      <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="pink" envMapIntensity={0.5} roughness={0} metalness={0} />
+      </mesh>
+    </group>
+    <OrbitControls />
+  </Canvas>
+  )
+}
+
+const getModel = () =>{
+  return (
+    <Canvas>
+      
+    <Suspense fallback={<></>}>
+    <directionalLight position={[-2.5, 4, 5]} />
+
+      <Model />
+      <OrbitControls />
+    </Suspense>
+  </Canvas>
+  )
+}
+
+
+const Skybox = () => {
+  const {scene} = useThree();
+  const envMap = useCubeTexture([
+    '1.jpg',
+    '2.jpg',
+    '3.jpg',
+    '4.jpg',
+    '5.jpg',
+    '6.jpg',
+    
+], { path: '/' })
+scene.background = envMap
+return null
+}
+
 
 const CameraControls = () => {
   // Get a reference to the Three.js Camera, and the canvas html element.
@@ -92,26 +142,43 @@ function Sphere() {
 
 // Lights
 function App() {
-  return (
-    <Canvas className="canvas" shadows dpr={[1, 2]} camera={{ position: [200, 200, 0], fov: 100 }}>
-      <SkyBox />
-      <ScrollControls pages={3} damping={0.1}>
-  {/* Canvas contents in here will *not* scroll, but receive useScroll! */}
-  <Sphere />
-  <Scroll>
-    <Scene />
-  </Scroll>
 
-  <Scroll>
-   <SceneModel />
-  </Scroll>
-</ScrollControls>
-      <axesHelper args={[500]} />
-      {/* <CameraControls /> */}
+  const [position, setPosition] = useState<Vector3>([3,3,3]); 
+
+ return <html lang="en" >
+  <head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+  </head>
+  <body >
+  <Canvas >  
+       
+       <>
+        <ambientLight intensity={0.5} />
+           <directionalLight position={[-2.5, 4, 5]} />
+           <Skybox />
+           <Particles />
+           <RobotAnimated  />
+           <PersonalData position={[2, 2, 2]} onPress={()=> {
+             setPosition(position);
+            
+           }} />
+           <OrbitControls  scale={position}
+           />
+       </>
      
-      
-    </Canvas>
-  );
+     
+         </Canvas>
+    {
+    getBox()
+  }
+  {
+    getModel()
+  }
+  
+    
+  </body>
+</html>
 }
 
 export default App;
