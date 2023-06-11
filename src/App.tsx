@@ -24,6 +24,7 @@ import Particles from './components/particle';
 import PersonalData from './components/personalData';
 import { RobotAnimated } from './components/robotAnimated';
 import PersonalDataScene from './components/PersonalDataScene';
+import SceneScroll from './components/SceneScroll';
 
 extend({ OrbitControls });
 const getBox = () =>{
@@ -153,6 +154,7 @@ function App() {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
   </head>
   <body >
+    <SceneScroll />
     <Canvas>
  <PersonalDataScene />
  </Canvas>
