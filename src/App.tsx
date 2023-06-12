@@ -23,6 +23,8 @@ import {
 import Particles from './components/particle';
 import PersonalData from './components/personalData';
 import { RobotAnimated } from './components/robotAnimated';
+import PersonalDataScene from './components/PersonalDataScene';
+import SceneScroll from './components/SceneScroll';
 
 extend({ OrbitControls });
 const getBox = () =>{
@@ -57,7 +59,7 @@ const getModel = () =>{
 }
 
 
-const Skybox = () => {
+export const Skybox = () => {
   const {scene} = useThree();
   const envMap = useCubeTexture([
     '1.jpg',
@@ -145,30 +147,17 @@ function App() {
 
   const [position, setPosition] = useState<Vector3>([3,3,3]); 
 
+  
  return <html lang="en" >
   <head>
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
   </head>
   <body >
-  <Canvas >  
-       
-       <>
-        <ambientLight intensity={0.5} />
-           <directionalLight position={[-2.5, 4, 5]} />
-           <Skybox />
-           <Particles />
-           <RobotAnimated  />
-           <PersonalData position={[2, 2, 2]} onPress={()=> {
-             setPosition(position);
-            
-           }} />
-           <OrbitControls  scale={position}
-           />
-       </>
-     
-     
-         </Canvas>
+    <SceneScroll />
+    <Canvas>
+ <PersonalDataScene />
+ </Canvas>
     {
     getBox()
   }
