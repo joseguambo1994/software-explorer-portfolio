@@ -2,7 +2,6 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useIntersect, Image, ScrollControls, Scroll, CameraControls, useScroll, Text, Edges, MeshTransmissionMaterial } from '@react-three/drei'
 import  { Mesh, MeshPhongMaterial, MeshStandardMaterial, Vector3} from 'three';
-import { Skybox } from '../../App';
 import Lights from '../Lights';
 
 interface VectorProps {
